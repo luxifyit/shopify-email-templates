@@ -1,67 +1,92 @@
-{% capture email_title %} Activate your account {% endcapture %}
-{% capture email_body %}Hi {{ customer.first_name }}, you've created a new customer account at <a href="{{shop.url}}">{{shop.name}}</a>. All you have to do is activate it and choose a password. {% endcapture %}
+{% capture email_title %}Activate your account{% endcapture %}
+{% capture customer_name %}Hi {{ customer.first_name }}{% endcapture %}
+
+{% capture email_body %}You've created an account at <a
+  href="{{shop.url}}">{{shop.name}}</a>.<br>All you have to do is activate it.{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <title>{{ email_title }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width">
-  <!-- To be inlined -->
-  <link rel="stylesheet" type="text/css" href="assets/notifications/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
   <link rel="stylesheet" type="text/css" href="assets/notifications/inline-styles.css">
+
 </head>
 
-  <body>
-    <table class="body">
-      <tr>
-        <td>
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <!-- @@include('header.liquid') -->
 
-          <!-- @@include('header.liquid') -->
+        <table class="row content">
+          <tr>
+            <td class="content__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+                      <h2 class="text-center">{{ customer_name }}</h2>
+                      {% if custom_message != blank %}
+                      <p class="text-center">{{ custom_message }}</p>
+                      {% else %}
+                      <p class="text-center">{{ email_body }}</p>
+                      {% endif %}
+                      <table class="row actions">
+                        <tr>
+                          <td class="empty-line"> </td>
+                        </tr>
+                        <tr>
+                          <td class="actions__cell">
+                            <table class="button main-action-cell">
+                              <tr>
+                                <td class="button__cell"><a href="{{ customer.account_activation_url }}"
+                                    class="button__text">Activate your account</a></td>
+                              </tr>
+                              
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p class="text-muted" style="margin-top: 20px;">If you did not sign up for this account you can ignore this email and the account will be deleted automatically after 5 days.</p></td>
+                        </tr>
+                      </table>
 
-          <table class="row content">
-            <tr>
-              <td class="content__cell">
-                <center>
-                  <table class="container">
-                    <tr>
-                      <td>
-                        <h2>{{ email_title }}</h2>
-                        {% if custom_message != blank %}
-                          <p>{{ custom_message }}</p>
-                        {% else %}
-                          <p>{{ email_body }}</p>
-                        {% endif %}
-                        <table class="row actions">
-                          <tr>
-                            <td class="actions__cell">
-                              <table class="button main-action-cell">
-                                <tr>
-                                  <td class="button__cell"><a href="{{ customer.account_activation_url }}" class="button__text">Activate your account</a></td>
-                                </tr>
-                              </table>
-                              {% if shop.url %}
-                                <table class="link secondary-action-cell">
-                                  <tr>
-                                    <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
-                                  </tr>
-                                </table>
-                              {% endif %}
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </center>
-              </td>
-            </tr>
-          </table>
 
-          <!-- @@include('footer.liquid') -->
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+        <table class="row footer">
+          <tr>
+            <td class="footer__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
 
-        </td>
-      </tr>
-    </table>
-  </body>
+                      <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a
+                          href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+
+        <img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+      </td>
+    </tr>
+  </table>
+</body>
+
 </html>

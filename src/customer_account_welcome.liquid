@@ -1,58 +1,115 @@
-{% capture email_title %}Welcome to {{ shop.name }}! {% endcapture %}
-{% capture email_body %}You've activated your customer account. Next time you shop with us, log in for faster checkout.{% endcapture %}
+{% capture email_title %}Welcome to {{ shop.name }}{% endcapture %}
+{% capture email_body %}You’ve activated your your account and can now start selling.{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <title>{{ email_title }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width">
   <!-- To be inlined -->
-  <link rel="stylesheet" type="text/css" href="assets/notifications/style.css">
-  <link rel="stylesheet" type="text/css" href="assets/notifications/inline-styles.css">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/inline-styles.css">
+  <style>
+
+  </style>
 </head>
 
-  <body>
-    <table class="body">
-      <tr>
-        <td>
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <table class="header row">
+          <tr>
+            <td class="header__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+                      <table class="row">
+                        <tr>
+                          <td class="shop-name__cell">
+                            {%- if shop.email_logo_url %}
+                            <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}"
+                              width="{{ shop.email_logo_width }}">
+                            {%- else %}
+                            <h1 class="shop-name__text">
+                              <a href="{{shop.url}}">{{ shop.name }}</a>
+                            </h1>
+                            {%- endif %}
+                          </td>
 
-          <!-- @@include('header.liquid') -->
+                        </tr>
+                      </table>
 
-          <table class="row content">
-            <tr>
-              <td class="content__cell">
-                <center>
-                  <table class="container">
-                    <tr>
-                      <td>
-                        <h2>{{ email_title }}</h2>
-                        <p>{{ email_body }}</p>
-                        {% if shop.url %}
-                          <table class="row actions">
-                            <tr>
-                              <td class="actions__cell">
-                                <table class="button main-action-cell">
-                                  <tr>
-                                    <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a></td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        {% endif %}
-                      </td>
-                    </tr>
-                  </table>
-                </center>
-              </td>
-            </tr>
-          </table>
+                    </td>
+                  </tr>
+                </table>
 
-          <!-- @@include('footer.liquid') -->
+              </center>
+            </td>
+          </tr>
+        </table>
 
-        </td>
-      </tr>
-    </table>
-  </body>
+        <table class="row content">
+          <tr>
+            <td class="content__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <h2 class="text-center">{{ email_title }}</h2>
+                      <p class="text-center">{{ email_body }}</p>
+                      {% if shop.url %}
+                      <table class="row actions">
+                        <tr>
+                          <td class="actions__cell">
+                            <table class="button main-action-cell">
+                              <tr>
+                                <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Start Selling</a></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                      {% endif %}
+
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td style="padding-top: 20px;"><img src="https://cdn.shopify.com/s/files/1/0116/2385/8238/files/account_activation.jpg?v=1584967023" alt="Start selling on Luxify"></td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+        <table class="row footer">
+          <tr>
+            <td class="footer__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a
+                          href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+
+        <img src="{{ 'notifications/spacer.png' | shopify_asset_url }}" class="spacer" height="1" />
+
+      </td>
+    </tr>
+  </table>
+</body>
+
 </html>
