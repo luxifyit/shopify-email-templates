@@ -3,8 +3,23 @@
  * - instead of directly overwriting style.css (Shopify's default email stylesheet)
  * we use this separate stylesheet
  */
- p {
-  color: #000;
+
+.content__cell:first-child table.container h2 {
+  font-style: normal;
+font-weight: normal;
+font-size: 30px;
+line-height: 42px;
+text-align: center;
+} 
+
+.content__cell:first-child table.container p {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.1em;
 }
  table.header {
    background-color: #000;
@@ -56,4 +71,18 @@ color: #8492A6;
 }
 .mt-3 {
   margin-top: 20px;
+}
+
+.text-primary {
+  color: #d59b55; 
+}
+.text-dark {
+  color: #000000;
+}
+
+.text-grey {
+  color: #8b8b8b!important;
+}
+.action-img {
+  margin-top: 30px;
 }

@@ -148,12 +148,12 @@ a, a:hover, a:active, a:visited {
 }
 
 .header {
-    margin: 40px 0 20px
+    /* margin: 40px 0 20px */
 }
 
 @media (max-width: 600px) {
     .header {
-        margin-top: 20px !important;
+        /* margin-top: 20px !important;*/
         margin-bottom: 2px !important
     }
 }

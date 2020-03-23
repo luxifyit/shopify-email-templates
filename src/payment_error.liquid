@@ -1,0 +1,75 @@
+{% capture email_title %} Your payment couldn’t be processed {% endcapture %}
+{% capture email_body %}
+You added items to your shopping cart but the payment couldn’t be processed. You haven’t been charged.
+{% endcapture %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>{{ email_title }}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+  </style>
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <link rel="stylesheet" type="text/css" href="assets/notifications/inline-styles.css">
+</head>
+
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <!-- @@include('header.liquid') -->
+        <table class="row content">
+          <tr>
+            <td class="content__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <h2 class="text-center">{{ email_title }}</h2>
+                      <p class="text-center">{{ email_body }}</p>
+                      <p> You can still return to your cart to complete your purchase. </p>
+                      {% if shop.url %}
+
+                      <table class="row actions">
+                        <tr>
+                          <td class="actions__cell">
+                            <table class="button main-action-cell">
+                              <tr>
+                                <td class="button__cell"><a style="text-transform: uppercase;"
+                                    href="{{ url }}" class="button__text">Return to cart & try again</a></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    
+                      {% endif %}
+
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <img class="action-img"
+                        src="https://cdn.shopify.com/s/files/1/0116/2385/8238/files/email_payment_rejected.jpg?v=1584971865"
+                        alt="luxify payment error">
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+        <!-- @@include('footer.liquid') -->
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>
+
