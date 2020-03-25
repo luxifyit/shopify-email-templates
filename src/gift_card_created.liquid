@@ -1,68 +1,99 @@
-{% capture email_title %}Your gift card is now available! {% endcapture %}
-{% capture email_body %}Hi{% if gift_card.customer %} {{ gift_card.customer.first_name }}{% endif %}, here is your {{ gift_card.balance | money_without_trailing_zeros }} gift card. Treat yourself, or send it to someone else as a gift.{% endcapture %}
+{% capture email_title %}
+Thank you for your <div class="text-primary" style="display: inline;">loyalty</div>
+{% endcapture %}
+{% capture email_body %}
+{% if gift_card.customer %}
+Hi {{ gift_card.customer.first_name }}, as a reward for your loyalty, we want to gift you with a {{ gift_card.balance | money_without_trailing_zeros }} gift card.
+Treat yourself, or send it to someone else as a gift.
+{% else %}
+Hi, here is your {{ gift_card.balance | money_without_trailing_zeros }} gift card. Treat yourself, or send it to someone
+else as a gift.
+{% endif %}
+{% endcapture %}
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
   <title>{{ email_title }}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width">
-  <!-- To be inlined -->
-  <link rel="stylesheet" type="text/css" href="assets/notifications/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
   <link rel="stylesheet" type="text/css" href="assets/notifications/inline-styles.css">
+
+
 </head>
 
-  <body>
-    <table class="body">
-      <tr>
-        <td>
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <!-- @@include('header.liquid') -->
 
-          <!-- @@include('header.liquid') -->
+        <table class="row content">
+          <tr>
+            <td class="content__cell">
+              <center>
+                <table class="container">
+                  <tr>
+                    <td>
 
-          <table class="row content">
-            <tr>
-              <td class="content__cell">
-                <center>
-                  <table class="container">
-                    <tr>
-                      <td>
-                        <h2>{{ email_title }}</h2>
-                        <p>{{ email_body }}</p>
-                        <table class="row actions">
-                          <tr>
-                            <td class="actions__cell">
-                              <table class="button main-action-cell">
-                                <tr>
-                                  <td class="button__cell"><a href="{{ gift_card.url }}" class="button__text">View your gift card</a></td>
-                                </tr>
-                              </table>
-                              {% if shop.url %}
-                                <table class="link secondary-action-cell">
-                                  <tr>
-                                    <td class="link__cell"><a href="{{ shop.url }}" class="link__text"><span class='or'>or</span> Visit our store</a></td>
-                                  </tr>
-                                </table>
-                              {% endif %}
-                            </td>
-                          </tr>
-                        </table>
-                        {% if gift_card.pass_url %}
-                          <a href="{{ gift_card.pass_url }}" class="apple-wallet-button">
-                            <img src="{{ 'gift-card/add-to-apple-wallet.png' | shopify_asset_url }}" alt="Add to Apple Wallet" width="120" height="40">
-                          </a>
-                        {% endif %}
-                      </td>
-                    </tr>
-                  </table>
-                </center>
-              </td>
-            </tr>
-          </table>
+                      <h2>{{ email_title }}</h2>
+                      <p class="text-dark">{{ email_body }}</p>
+                      
 
-          <!-- @@include('footer.liquid') -->
 
-        </td>
-      </tr>
-    </table>
-  </body>
+
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <div class="gift-card mt-3">
+                        <img class="gift-card__img" src="https://cdn.shopify.com/s/files/1/0116/2385/8238/files/image_af62cbd2-aa52-4a8a-9120-82237ecf702b.jpg?v=1585060569">
+                        <span class="gift-card__amount">{{ gift_card.balance | money_without_trailing_zeros }}</span>
+                        <span class="gift-card__card">Gift Card</span>
+                      </div>
+                      </td>  
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <table class="row actions">
+                        <tr>
+                          <td class="empty-line"> </td>
+                        </tr>
+                        <tr>
+                          <td class="actions__cell">
+                            <table class="button main-action-cell">
+                              <tr>
+                                <td class="button__cell"><a href="{{ gift_card.url }}" class="button__text">View your
+                                    gift card</a></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+
+                      {% if gift_card.pass_url %}
+                      <a href="{{ gift_card.pass_url }}" class="apple-wallet-button">
+                        <img src="{{ 'gift-card/add-to-apple-wallet.png' | shopify_asset_url }}"
+                          alt="Add to Apple Wallet" width="120" height="40">
+                      </a>
+                      {% endif %}
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </table>
+        <!-- @@include('footer.liquid') -->
+
+
+      </td>
+    </tr>
+  </table>
+</body>
+
 </html>
